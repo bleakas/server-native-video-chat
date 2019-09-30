@@ -58,9 +58,36 @@ io.on('connection', function(socket) {
         log('Client said: ', message);
         var room = message['room'];
         if (room) {
-            io.sockets.in(room).emit('message', message);
+         //   io.sockets.in(room).emit('message', message);
+socket.broadcast.to(room).emit('message', message);
         }
     });
+
+
+
+
+// SEND PUSHKIT NOTIFICATION
+ socket.on('notify', function (message) {
+ 
+
+
+//Replace this code with your PUSHKIT implementation
+//You should get YOUR_PUSHKIT_TOKEN from message["userId"], if you can't notify me
+
+    /*  
+
+ curl -v -d JSON.stringify(message) --http2 --cert voipCert.pem:YOUR_PASS https://api.development.push.apple.com/3/device/YOUR_PUSHKIT_TOKEN
+
+
+
+*/
+    });
+
+
+
+
+
+
 
     socket.on('create or join', function (room) {
         log('Received request to create or join room ' + room);
